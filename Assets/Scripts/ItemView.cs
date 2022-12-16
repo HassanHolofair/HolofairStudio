@@ -17,15 +17,16 @@ namespace HolofairStudio
             Destroy(_loading);
         }
 
-        public void Enqueue()
+        public void ShowEnqueueIndicator()
         {
             _queued.SetActive(true);
             _loading.SetActive(false);
         }
 
-        public void Dequeue()
+        public void ShowDownloadingIndicator()
         {
-
+            _queued.SetActive(false);
+            _loading.SetActive(true);
         }
     }
 }

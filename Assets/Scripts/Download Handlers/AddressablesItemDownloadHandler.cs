@@ -16,7 +16,7 @@ namespace HolofairStudio
             if (isExisit)
             {
                 itemModels.Enqueue(itemModel);
-                itemModel.ItemView.Enqueue();
+                itemModel.ItemView.ShowEnqueueIndicator();
                 return true;
             }
 
@@ -30,29 +30,12 @@ namespace HolofairStudio
             return operation.Status == AsyncOperationStatus.Succeeded;
         }
 
-        private async void GetNext()
-        {
-            if (itemModels.Count <= 0)
-                return;
-
-            var model = itemModels.Dequeue();
-
-            AsyncOperationHandle<GameObject> opHandle;
-
-            opHandle = Addressables.LoadAssetAsync<GameObject>(model.URL);
-
-            await opHandle.Task;
-
-            model.ItemView.SetItemAsset(opHandle.Result);
-
-            GetNext();
-        }
-
         public override async void DownloadAsync()
         {
             while (itemModels.Count > 0)
             {
                 var item = itemModels.Dequeue();
+                item.ItemView.ShowDownloadingIndicator();
 
                 var operation = Addressables.LoadAssetAsync<GameObject>(item.URL);
 

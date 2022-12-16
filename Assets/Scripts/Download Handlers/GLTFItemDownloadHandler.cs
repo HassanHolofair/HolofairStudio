@@ -7,6 +7,7 @@ namespace HolofairStudio
     [CreateAssetMenu(menuName ="DownloadHandle/gltfHandler")]
     public class GLTFItemDownloadHandler : ItemDownloadHandler
     {
+        [SerializeField] private GltfAsset _gltfPrefab;
         private const string EXTENTION = ".gltf";
 
         public override async void DownloadAsync()
@@ -14,13 +15,12 @@ namespace HolofairStudio
             while (itemModels.Count > 0)
             {
                 var item = itemModels.Dequeue();
+                item.ItemView.ShowDownloadingIndicator();
 
-                var gltfHolder = new GameObject("gltf holder");
-                gltfHolder.transform.parent = item.ItemView.transform;
-                gltfHolder.transform.position = default;
+                GltfAsset asset = Instantiate(_gltfPrefab, item.ItemView.transform);
+                await asset.Load(item.URL);
 
-                var gltfAsset = gltfHolder.AddComponent<GltfAsset>();
-                await gltfAsset.Load(item.URL);
+                item.ItemView.SetItemAsset(asset.gameObject);
             }
         }
 
@@ -30,6 +30,7 @@ namespace HolofairStudio
                 return false;
 
             itemModels.Enqueue(itemModel);
+            itemModel.ItemView.ShowEnqueueIndicator();
             return true;
         }
 
