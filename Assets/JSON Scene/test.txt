@@ -1,0 +1,20 @@
+[
+  {
+    "url": "Assets/Prefabs/Wooden chair.prefab",
+    "position": [0,0,0],
+    "euler": [0,45.25,0],
+    "scale": [1,1,1]
+  },
+  {
+    "url": "Assets/Prefabs/Wooden chair.prefab",
+    "position": [0,0,5.25],
+    "euler": [0,90.45,0],
+    "scale": [1,1,1]
+  },
+  {
+    "url": "https://cdn.holofair.net/gltfs/red_velvet_rope/scene.gltf",
+    "position": [0,0,10.1],
+    "euler": [0,128.75,0],
+    "scale": [1,1,1]
+  }
+]
