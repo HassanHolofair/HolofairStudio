@@ -13,8 +13,11 @@ namespace HolofairStudio
         {
             Instantiate(itemAsset, transform);
 
-            Destroy(_queued);
-            Destroy(_loading);
+
+            _queued.SetActive(false);
+            _loading.SetActive(false);
+
+            AddCollider();
         }
 
         public void ShowEnqueueIndicator()
@@ -27,6 +30,16 @@ namespace HolofairStudio
         {
             _queued.SetActive(false);
             _loading.SetActive(true);
+        }
+
+        private void AddCollider()
+        {
+            // todo: add collider to each mesh renderer
+            GameObject meshContainingObject = transform.GetComponentInChildren<MeshRenderer>().gameObject;
+
+            meshContainingObject.AddComponent<MeshCollider>();
+
+            Debug.Log("collider added");
         }
     }
 }

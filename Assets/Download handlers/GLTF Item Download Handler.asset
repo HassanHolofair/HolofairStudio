@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea483e0481113254c919084208c9310f, type: 3}
   m_Name: GLTF Item Download Handler
   m_EditorClassIdentifier: 
+  _gltfPrefab: {fileID: 8697264879383630267, guid: 7f96483aabe724a4e8489f09bed3cb67, type: 3}

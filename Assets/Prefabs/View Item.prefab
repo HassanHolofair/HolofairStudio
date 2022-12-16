@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2299992288611044957}
   - component: {fileID: 4397089097337529091}
+  - component: {fileID: 1743026611415665745}
   m_Layer: 0
   m_Name: View Item
   m_TagString: Untagged
@@ -49,6 +50,41 @@ MonoBehaviour:
   _queued: {fileID: 4546857260947833982}
   _loading: {fileID: 6342808397878901538}
   reportMissingKeys: 0
+--- !u!114 &1743026611415665745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2299992288611044930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a961995cedcfac146a43008994f76948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_colliders: []
+  Selected:
+    m_PersistentCalls:
+      m_Calls: []
+  Unselected:
+    m_PersistentCalls:
+      m_Calls: []
+  BoundsObject: {fileID: 0}
+  BoundsType: 0
+  CustomBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  CanTransform: 1
+  CanInspect: 1
+  CanDuplicate: 1
+  CanDelete: 1
+  CanRename: 1
+  CanCreatePrefab: 1
+  ShowSelectionGizmo: 1
+  CanSelect: 1
+  CanSnap: 1
+  AddColliders: 1
+  m_markAsDestroyed: 0
 --- !u!1 &4546857260947833982
 GameObject:
   m_ObjectHideFlags: 0
