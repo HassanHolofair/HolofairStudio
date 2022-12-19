@@ -21,6 +21,14 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/Wooden chair.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 1162ddc7ac2c0e8418b914497574a114
+    m_Address: Assets/Models/painted_wooden_chair/chair.PNG
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 9d3c46233ec46b346a049d605f27fc39
+    m_Address: Assets/Scriptable objects/Catalog/Resources Catalog.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: ae16328ff8a7a5640853c9ced07bc729, type: 2}
   m_SchemaSet:

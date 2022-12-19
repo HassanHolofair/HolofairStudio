@@ -1,18 +1,15 @@
+using System;
 using UnityEngine;
 
 namespace HolofairStudio
 {
-    public class ItemView : MonoBehaviour
+    public class ItemView : View<GameObject, int>
     {
-        [SerializeField] private GameObject _queued;
-        [SerializeField] private GameObject _loading;
-
         public bool reportMissingKeys;
 
         public void SetItemAsset(GameObject itemAsset)
         {
             Instantiate(itemAsset, transform);
-
 
             _queued.SetActive(false);
             _loading.SetActive(false);
