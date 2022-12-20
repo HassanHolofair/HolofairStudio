@@ -1,6 +1,6 @@
 using UnityEngine;
-using System.Threading.Tasks;
 using GLTFast;
+using System.Threading.Tasks;
 
 namespace HolofairStudio
 {
@@ -26,6 +26,9 @@ namespace HolofairStudio
 
         public override async Task<bool> EnqueueAsync(ItemModel itemModel)
         {
+            // just to remove the compiler worning!
+            //await Task.Delay(1);
+
             if (!itemModel.URL.Contains(EXTENTION))
                 return false;
 
@@ -33,6 +36,5 @@ namespace HolofairStudio
             itemModel.ItemView.ShowEnqueueIndicator();
             return true;
         }
-
     }
 }

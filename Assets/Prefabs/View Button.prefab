@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7152268087880717668}
   - component: {fileID: 8375625253718983119}
   - component: {fileID: 5030882477913544490}
+  - component: {fileID: 3916644185902738498}
   m_Layer: 5
   m_Name: View Button
   m_TagString: Untagged
@@ -68,7 +69,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -121,7 +122,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7152268087880717668}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5030882477913544490}
+        m_TargetAssemblyTypeName: HolofairStudio.SceneResourceView, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5030882477913544490
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,3 +149,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _queued: {fileID: 0}
   _loading: {fileID: 0}
+--- !u!114 &3916644185902738498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5180208782630187728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a671c0688130354abe06801d0816cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 7152268087880717668}
+  rect: {x: 0, y: 0}
+  pivot: {x: 0.5, y: 0.5}
+  pixelsPerUnit: 100
+  WebGLTextureFormat: 29
+  WindowsTextureFormat: 4
+  iOSTextureFormat: 50
+  AndroidTextureFormat: 46

@@ -10,7 +10,7 @@ namespace HolofairStudio
 
         public Action<T1> OnSelect;
 
-        public void SetView(T1 view)
+        public void SetView(T2 view)
         {
 
         }

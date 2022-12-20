@@ -1,29 +1,23 @@
+using com.outrealxr.networkimages;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace HolofairStudio
 {
-    [RequireComponent(typeof(Image))]
-    [RequireComponent(typeof(Button))]
+    [RequireComponent(typeof(NetworkImageUIImage))]
     public class SceneResourceView : View<int, string>
     {
-        private Image _image;
-        private Button _button;
+        public NetworkImage NetworkImage { get; private set; }
+        public int Index { get; set; }
+
+        public void Select()
+        {
+            OnSelect(Index);
+        }
 
         private void Awake()
         {
-            _image = GetComponent<Image>();
-            _button = GetComponent<Button>();
-        }
-
-
-        public void Setup(int index, string imageURL)
-        {
-            // todo: use network image system to show the image
-
-            _button.onClick.AddListener(delegate {
-                OnSelect(index);
-            });
+            NetworkImage = GetComponent<NetworkImageUIImage>();
         }
     }
 }

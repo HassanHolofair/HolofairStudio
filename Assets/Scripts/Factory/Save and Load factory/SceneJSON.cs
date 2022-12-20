@@ -12,21 +12,24 @@ namespace HolofairStudio
         public ItemView ViewPrefab { get; set; }
         public List<ItemModel> Items { get; set; }
 
-        public abstract void AddItem(ItemModel itemModel);
+        public abstract void AddItemAsync(ItemModel itemModel);
         public abstract List<ItemModel> FromJSON();
         public abstract string ToJSON();
 
-        protected async Task EnqueueAllItems()
+        protected async Task EnqueueItemsAsync()
         {
             foreach (var item in Items)
-            {
-                foreach (var handler in _itemDownloadHandlers)
-                {
-                    bool hasEnqueued = await handler.EnqueueAsync(item);
+                await EnqueueItemAsync(item);
+        }
 
-                    if (hasEnqueued)
-                        break;
-                }
+        protected async Task EnqueueItemAsync(ItemModel itemModel)
+        {
+            foreach (var handler in _itemDownloadHandlers)
+            {
+                bool hasEnqueued = await handler.EnqueueAsync(itemModel);
+
+                if (hasEnqueued)
+                    break;
             }
         }
     }

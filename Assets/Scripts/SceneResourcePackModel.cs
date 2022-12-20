@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace HolofairStudio
 {
     [CreateAssetMenu]
     public class SceneResourcePackModel : ScriptableObject
     {
-        public string PrefabURL;
-        public string ImageURl;
+        public AssetReferenceGameObject Prefab;
+        public AssetReferenceTexture2D Image;
     }
 }

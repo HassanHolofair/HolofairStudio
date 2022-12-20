@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +7,9 @@ namespace HolofairStudio
     {
         [SerializeField] private string _url;
 
-        public override void AddItem(ItemModel itemModel)
+        public override void AddItemAsync(ItemModel itemModel)
         {
-            throw new System.NotImplementedException();
+            Items.Add(itemModel);
         }
 
         public override List<ItemModel> FromJSON()

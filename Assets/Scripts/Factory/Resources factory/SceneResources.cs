@@ -7,18 +7,28 @@ namespace HolofairStudio
     {
         [SerializeField] private SceneResourceView _viewPrefab;
         [SerializeField] private Transform _viewsHolder;
-
+        private SceneJSON _sceneJSON;
+        private int _currentResourcesIndex;
         public List<SceneResourcesModel> Resources { get; private set; } = new List<SceneResourcesModel>();
 
-        public void AddResource(int index, string modelUrl, string imageUrl)
+        private void Start()
         {
-            SceneResourcesModel model = new(index, modelUrl, imageUrl, _viewPrefab, _viewsHolder);
-            Resources.Add(model);
+            _sceneJSON = FindObjectOfType<SceneJSON>();
         }
 
-        private void CreateItemModel()
+        public void AddResource(string modelUrl, string imageUrl)
         {
+            SceneResourcesModel model = new(_currentResourcesIndex, modelUrl, imageUrl, _viewPrefab, _viewsHolder, CreateItemModel);
+            Resources.Add(model);
+            _currentResourcesIndex++;
+        }
 
+        private void CreateItemModel(int index)
+        {
+            Debug.Log(index);
+            SceneResourcesModel resource = Resources[index];
+            ItemModel itemModel = new (resource.ModelURL, _sceneJSON.ViewPrefab);
+            _sceneJSON.AddItemAsync(itemModel);
         }
     }
 }

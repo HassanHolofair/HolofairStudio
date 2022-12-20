@@ -1,4 +1,4 @@
-using UnityEngine;
+using System.Linq;
 using UnityEngine.AddressableAssets;
 
 namespace HolofairStudio
@@ -8,10 +8,15 @@ namespace HolofairStudio
     {
         public AddressablesSceneResourceFactory(SceneResources resources, string url) : base(resources, url) { }
 
-        public override async void StartLoading()
+        public override void StartLoading()
         {
             base.StartLoading();
 
+            LoadAdressable();
+        }
+
+        private async void LoadAdressable()
+        {
             var operation = Addressables.LoadAssetAsync<SceneResourcePack>(_url);
 
             await operation.Task;
@@ -21,7 +26,10 @@ namespace HolofairStudio
             for (int i = 0; i < resources.Catalog.Count; i++)
             {
                 SceneResourcePackModel item = resources.Catalog[i];
-                SceneResources.AddResource(i, item.ImageURl, item.PrefabURL);
+
+                string imageURL = Addressables.LoadResourceLocationsAsync(item.Image).WaitForCompletion().First()?.PrimaryKey;
+                string prefabURL = Addressables.LoadResourceLocationsAsync(item.Prefab).WaitForCompletion().First()?.PrimaryKey;
+                SceneResources.AddResource(modelUrl: prefabURL, imageUrl: imageURL);
             }
         }
     }

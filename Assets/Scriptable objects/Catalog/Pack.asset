@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2fabdd71313034a489d2283e58d7c40d, type: 3}
-  m_Name: Resources Catalog
+  m_Name: Pack
   m_EditorClassIdentifier: 
   Catalog:
   - {fileID: 11400000, guid: 15b5fbb680d13d444935deee29b790fc, type: 2}

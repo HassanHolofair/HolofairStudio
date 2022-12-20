@@ -15,5 +15,11 @@ namespace HolofairStudio
             ItemView = GameObject.Instantiate(itemView);
             json.ToTransform(ItemView);
         }
+
+        public ItemModel(string url, ItemView itemView)
+        {
+            URL = url;
+            ItemView = GameObject.Instantiate(itemView);
+        }
     }
 }

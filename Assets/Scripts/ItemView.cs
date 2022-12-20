@@ -31,12 +31,10 @@ namespace HolofairStudio
 
         private void AddCollider()
         {
-            // todo: add collider to each mesh renderer
-            GameObject meshContainingObject = transform.GetComponentInChildren<MeshRenderer>().gameObject;
+            var objects = transform.GetComponentsInChildren<MeshRenderer>();
 
-            meshContainingObject.AddComponent<MeshCollider>();
-
-            Debug.Log("collider added");
+            foreach (var item in objects)
+                item.gameObject.AddComponent<MeshCollider>();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace HolofairStudio
             {
                 itemModels.Enqueue(itemModel);
                 itemModel.ItemView.ShowEnqueueIndicator();
-                return true;
+                return isExisit;
             }
 
             return false;
@@ -26,12 +26,14 @@ namespace HolofairStudio
         public async Task<bool> AddressableResourceExists(string key)
         {
             var operation = Addressables.LoadResourceLocationsAsync(key);
+
             await operation.Task;
             return operation.Status == AsyncOperationStatus.Succeeded;
         }
 
         public override async void DownloadAsync()
         {
+            // what if we add an item while this process is running?
             while (itemModels.Count > 0)
             {
                 var item = itemModels.Dequeue();

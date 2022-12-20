@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9067ebb5d360fab4aa5801cc34dfe80c, type: 3}
   m_Name: Wooden chair
   m_EditorClassIdentifier: 
-  PrefabURL: Assets/Prefabs/Wooden chair.prefab
-  ImageURl: Assets/Models/painted_wooden_chair/chair.PNG
+  Prefab:
+    m_AssetGUID: 2657a54fc2b83864a80c0616b5a6c266
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0
+  Image:
+    m_AssetGUID: 1162ddc7ac2c0e8418b914497574a114
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_EditorAssetChanged: 0

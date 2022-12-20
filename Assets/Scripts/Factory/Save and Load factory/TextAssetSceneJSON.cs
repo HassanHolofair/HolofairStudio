@@ -1,6 +1,7 @@
 using UnityEngine;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace HolofairStudio
 {
@@ -8,9 +9,24 @@ namespace HolofairStudio
     {
         [SerializeField] private TextAsset _source;
 
-        public override void AddItem(ItemModel itemModel)
+        private async void Awake()
         {
-            
+            Items = FromJSON();
+
+            await EnqueueItemsAsync();
+
+            foreach (var handler in _itemDownloadHandlers)
+                handler.DownloadAsync();
+        }
+
+        public override async void AddItemAsync(ItemModel itemModel)
+        {
+            Items.Add(itemModel);
+
+            await EnqueueItemAsync(itemModel);
+
+            foreach (var handler in _itemDownloadHandlers)
+                handler.DownloadAsync();
         }
 
         public override List<ItemModel> FromJSON()
@@ -38,18 +54,7 @@ namespace HolofairStudio
 
         public void Save()
         {
-        }
-
-        private async void Awake()
-        {
-            Items = FromJSON();
-
-            await EnqueueAllItems();
-
-            foreach (var handler in _itemDownloadHandlers)
-            {
-                handler.DownloadAsync();
-            }
+            throw new System.NotImplementedException();
         }
     }
 }
