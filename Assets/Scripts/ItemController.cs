@@ -1,6 +1,7 @@
 using Battlehub.RTCommon;
 using Battlehub.RTHandles.Demo;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace HolofairStudio
 {
@@ -35,7 +36,7 @@ namespace HolofairStudio
 
         private void Update()
         {
-            if (Input.GetMouseButton(0))
+            if (Mouse.current.leftButton.isPressed)
             {
                 Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out RaycastHit hit, 100))
