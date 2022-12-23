@@ -1,4 +1,5 @@
 ﻿using Battlehub.RTCommon;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -220,6 +221,11 @@ namespace Battlehub.RTHandles.Demo
         private void OnRedoClick()
         {
             m_editor.Undo.Redo();
+        }
+
+        public void DisableTools()
+        {
+            m_editor.Tools.Current = RuntimeTool.None;
         }
     }
 }
