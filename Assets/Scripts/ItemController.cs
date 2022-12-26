@@ -49,10 +49,6 @@ namespace HolofairStudio
                     else if (_selectedModelTransform && _controlType != ControlType.none)
                         Control(_controlType,hit.point, hit.normal);
                 }
-                else
-                {
-                    //_selectedModelTransform = null;
-                }
             }
         }
 
@@ -95,9 +91,11 @@ namespace HolofairStudio
             _controlType = (ControlType)controlType;
         }
 
+        /// <summary>
+        /// Disable our control if gizmo tools are in use
+        /// </summary>
         private void OnToolChanged()
         {
-            Debug.Log("tool changed");
             _controlType = ControlType.none;
         }
 
