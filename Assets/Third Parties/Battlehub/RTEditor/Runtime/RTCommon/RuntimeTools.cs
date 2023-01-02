@@ -13,7 +13,8 @@ namespace Battlehub.RTCommon
         Scale,
         View,
         Rect,
-        Custom
+        Custom,
+        SnapX
     }
 
     public enum RuntimePivotRotation

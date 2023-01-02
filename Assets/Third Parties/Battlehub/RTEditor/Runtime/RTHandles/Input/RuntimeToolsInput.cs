@@ -10,6 +10,7 @@ namespace Battlehub.RTHandles
         public KeyCode RotateKey = KeyCode.E;
         public KeyCode ScaleKey = KeyCode.R;
         public KeyCode RectToolKey = KeyCode.T;
+        public KeyCode SnapToolKey = KeyCode.Y;
         public KeyCode PivotRotationKey = KeyCode.X;
         public KeyCode PivotModeKey = KeyCode.Z;
 
@@ -57,6 +58,10 @@ namespace Battlehub.RTHandles
                 else if(RectToolAction())
                 {
                     m_editor.Tools.Current = RuntimeTool.Rect;
+                }
+                else if (SnapToolAction())
+                {
+                    m_editor.Tools.Current = RuntimeTool.SnapX;
                 }
 
                 if (PivotRotationAction())
@@ -107,6 +112,11 @@ namespace Battlehub.RTHandles
         protected virtual bool RectToolAction()
         {
             return m_editor.Input.GetKeyDown(RectToolKey);
+        }
+
+        protected virtual bool SnapToolAction()
+        {
+            return m_editor.Input.GetKeyDown(SnapToolKey);
         }
 
         protected virtual bool PivotRotationAction()
