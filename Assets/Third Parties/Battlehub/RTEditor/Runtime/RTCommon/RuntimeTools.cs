@@ -270,6 +270,8 @@ namespace Battlehub.RTCommon
             }
         }
 
+        public bool InvertSnapping { get; set; }
+
         public RuntimeTools()
         {
             Reset();

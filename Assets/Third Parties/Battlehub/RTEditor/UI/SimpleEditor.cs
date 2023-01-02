@@ -105,6 +105,7 @@ namespace HolofairStudio
 
             if (m_undoButton) m_undoButton.onClick.AddListener(OnUndoClick);
             if (m_redoButton) m_redoButton.onClick.AddListener(OnRedoClick);
+            if (m_invertButton) m_invertButton.onClick.AddListener(OnInvertButton);
         }
 
         protected virtual void UnsubscribeUIEvents()
@@ -119,11 +120,12 @@ namespace HolofairStudio
             if (m_snapYToggle) m_snapYToggle.onValueChanged.RemoveListener(OnSnapYToggle);
             if (m_snapZToggle) m_snapZToggle.onValueChanged.RemoveListener(OnSnapZToggle);
 
-            if (m_pivotModeToggle) m_pivotModeToggle.onValueChanged.AddListener(OnPivotModeToggle);
+            if (m_pivotModeToggle) m_pivotModeToggle.onValueChanged.RemoveListener(OnPivotModeToggle);
             if (m_pivotRotationToggle) m_pivotRotationToggle.onValueChanged.RemoveListener(OnPivotRotationToggle);
 
             if (m_undoButton) m_undoButton.onClick.RemoveListener(OnUndoClick);
             if (m_redoButton) m_redoButton.onClick.RemoveListener(OnRedoClick);
+            if (m_invertButton) m_invertButton.onClick.RemoveListener(OnInvertButton);
         }
 
         private void OnToolChanged()
@@ -267,6 +269,12 @@ namespace HolofairStudio
         private void OnSnapZToggle(bool value)
         {
             m_editor.Tools.Current = RuntimeTool.SnapZ;
+        }
+
+        private void OnInvertButton()
+        {
+            m_editor.Tools.InvertSnapping = !m_editor.Tools.InvertSnapping;
+            Debug.Log(m_editor.Tools.InvertSnapping);
         }
     }
 }

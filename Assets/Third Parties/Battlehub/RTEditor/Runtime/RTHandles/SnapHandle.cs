@@ -1,13 +1,11 @@
 using Battlehub.RTCommon;
 using Battlehub.RTHandles;
 using UnityEngine;
-using HolofairStudio;
 
 
 public class SnapHandle : BaseHandle
 {
     [SerializeField] private LayerMask _modelsLayer;
-    private bool _invert;
     public override RuntimeTool Tool
     {
         get { return RuntimeTool.SnapX; }
@@ -37,17 +35,23 @@ public class SnapHandle : BaseHandle
 
         Vector3 direction = Vector3.zero;
         RuntimeTool tool = Editor.Tools.Current;
-
+        Debug.Log(Editor.Tools.InvertSnapping);
         switch (tool)
         {
             case RuntimeTool.SnapX:
-                direction = Quaternion.Euler(new Vector3(0, 90 * (_invert ? -1 : 1), 0)) * hit.normal;
+                if (Editor.Tools.InvertSnapping) 
+                    direction = Quaternion.Euler(new Vector3(0, 90, 0)) * hit.normal;
+                else
+                    direction = Quaternion.Euler(new Vector3(0, -90, 0)) * hit.normal;
                 break;
             case RuntimeTool.SnapY:
-                direction = Quaternion.Euler(new Vector3(90 * (_invert ? 1 : -1), 0, 0)) * hit.normal;
+                if(Editor.Tools.InvertSnapping)
+                    direction = Quaternion.Euler(new Vector3(-90, 0, 0)) * hit.normal;
+                else
+                    direction = Quaternion.Euler(new Vector3(90, 0, 0)) * hit.normal;
                 break;
             case RuntimeTool.SnapZ:
-                direction = hit.normal * (_invert ? -1 : 1);
+                direction = hit.normal * (Editor.Tools.InvertSnapping ? -1 : 1);
                 break;
         }
 
