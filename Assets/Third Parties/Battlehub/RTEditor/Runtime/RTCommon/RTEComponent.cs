@@ -34,11 +34,8 @@ namespace Battlehub.RTCommon
                         throw new NotSupportedException("window change is not supported");
                     }
                     m_editor = IOC.Resolve<IRTE>();
-                    Debug.Log("resolve editor for " + name);
                     m_window = value;
                 }
-                else
-                    Debug.Log("can't resolve window for " + name);
             }
         }
 
@@ -55,7 +52,6 @@ namespace Battlehub.RTCommon
 
         protected virtual void Awake()
         {
-            Debug.Log("awake from RTEComponent " + name);
             m_editor = IOC.Resolve<IRTE>();
 
             if(Window == null)

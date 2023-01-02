@@ -14,7 +14,9 @@ namespace Battlehub.RTCommon
         View,
         Rect,
         Custom,
-        SnapX
+        SnapX,
+        SnapY,
+        SnapZ
     }
 
     public enum RuntimePivotRotation

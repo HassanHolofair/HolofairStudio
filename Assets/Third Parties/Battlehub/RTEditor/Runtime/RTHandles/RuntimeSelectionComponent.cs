@@ -499,11 +499,17 @@ namespace Battlehub.RTHandles
                 m_isSnapHandleEnabled = value;
                 if (m_snapHandle != null)
                 {
-                    if (value && Editor.Tools.Current == RuntimeTool.SnapX)
+                    if (value && 
+                        (Editor.Tools.Current == RuntimeTool.SnapX ||
+                        Editor.Tools.Current == RuntimeTool.SnapY ||
+                        Editor.Tools.Current == RuntimeTool.SnapZ))
                     {
                         m_snapHandle.Targets = GetHandleTargets();
                     }
-                    m_snapHandle.gameObject.SetActive(value && Editor.Tools.Current == RuntimeTool.SnapX && m_snapHandle.Target != null);
+                    m_snapHandle.gameObject.SetActive(value && 
+                        (Editor.Tools.Current == RuntimeTool.SnapX ||
+                        Editor.Tools.Current == RuntimeTool.SnapY ||
+                        Editor.Tools.Current == RuntimeTool.SnapZ) && m_snapHandle.Target != null);
                 }
             }
         }
@@ -1555,7 +1561,10 @@ namespace Battlehub.RTHandles
             }
             if (m_snapHandle != null)
             {
-                if (hasSelection && Editor.Tools.Current == RuntimeTool.SnapX && IsSnapHandleEnabled)
+                if (hasSelection && IsSnapHandleEnabled && (
+                    Editor.Tools.Current == RuntimeTool.SnapX ||
+                    Editor.Tools.Current == RuntimeTool.SnapY ||
+                    Editor.Tools.Current == RuntimeTool.SnapZ))
                 {
                     m_snapHandle.transform.position = Selection.activeTransform.position;
                     m_snapHandle.Targets = GetHandleTargets();

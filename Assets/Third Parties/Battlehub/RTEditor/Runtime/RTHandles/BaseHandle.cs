@@ -551,7 +551,6 @@ namespace Battlehub.RTHandles
 
         protected override void Awake()
         {
-            Debug.Log("awake from BaseHandle " + name);
             base.Awake();
         
             m_allHandles.Add(this);
@@ -601,8 +600,6 @@ namespace Battlehub.RTHandles
 
                 Model.ModelScale = Appearance.HandleScale;
                 Model.SelectionMargin = Appearance.SelectionMargin;
-
-                Debug.Log("initialize " + name);
             }
                 
         }

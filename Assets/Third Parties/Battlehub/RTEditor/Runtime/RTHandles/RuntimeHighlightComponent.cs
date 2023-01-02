@@ -98,8 +98,9 @@ namespace Battlehub.RTHandles
                         break;
 
                     case RuntimeTool.SnapX:
+                    case RuntimeTool.SnapY:
+                    case RuntimeTool.SnapZ:
                         handle = m_selectionComponent.SnapHandle;
-                        Debug.Log("No Selection tool for snapping");
                         break;
 
                     case RuntimeTool.Custom:
