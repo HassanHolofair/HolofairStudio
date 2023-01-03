@@ -27,15 +27,11 @@ public class SnapHandle : BaseHandle
         foreach (var target in ActiveTargets)
         {
             if(hit.transform.root == target)
-            {
-                Debug.Log("same obj");
                 return;
-            }
         }
-
+        
         Vector3 direction = Vector3.zero;
         RuntimeTool tool = Editor.Tools.Current;
-        Debug.Log(Editor.Tools.InvertSnapping);
         switch (tool)
         {
             case RuntimeTool.SnapX:

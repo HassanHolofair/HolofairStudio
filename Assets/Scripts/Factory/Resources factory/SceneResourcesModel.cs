@@ -9,7 +9,7 @@ namespace HolofairStudio
         public string ImageURL { get; set; }
         public SceneResourceView View { get; set; }
 
-        public SceneResourcesModel(int index, string modelURL, string imageURL, SceneResourceView prefab, Transform viewHolder, Action<int> select)
+        public SceneResourcesModel(int index, string modelURL, string imageURL, SceneResourceView prefab, Transform viewHolder, Action<int> OnButtonClicked)
         {
             ImageURL = imageURL;
             ModelURL = modelURL;
@@ -17,7 +17,7 @@ namespace HolofairStudio
             View = GameObject.Instantiate(prefab, viewHolder);
             View.NetworkImage.SetAndEnqueue(ImageURL);
             View.Index = index;
-            View.OnSelect += select;
+            View.OnSelect += OnButtonClicked;
         }
 
     }
