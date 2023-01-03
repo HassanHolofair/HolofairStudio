@@ -580,14 +580,14 @@ namespace Battlehub.RTHandles
                 bool activeSelf = Model.gameObject.activeSelf;
                 Model.gameObject.SetActive(false);
                 BaseHandleModel model = Instantiate(Model, transform.parent);
-                
+
                 model.name = Model.name;
                 model.Appearance = Appearance;
                 model.Window = Window;
 
                 Model.gameObject.SetActive(activeSelf);
 
-                if(enabled)
+                if (enabled)
                 {
                     model.gameObject.SetActive(true);
                     Model = model;
@@ -597,10 +597,11 @@ namespace Battlehub.RTHandles
                 {
                     Model = model;
                 }
-            
+
                 Model.ModelScale = Appearance.HandleScale;
                 Model.SelectionMargin = Appearance.SelectionMargin;
             }
+                
         }
 
         protected override void Start()

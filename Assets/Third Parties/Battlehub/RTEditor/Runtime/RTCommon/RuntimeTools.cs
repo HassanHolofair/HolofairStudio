@@ -13,7 +13,10 @@ namespace Battlehub.RTCommon
         Scale,
         View,
         Rect,
-        Custom
+        Custom,
+        SnapX,
+        SnapY,
+        SnapZ
     }
 
     public enum RuntimePivotRotation
@@ -266,6 +269,8 @@ namespace Battlehub.RTCommon
                 }
             }
         }
+
+        public bool InvertSnapping { get; set; }
 
         public RuntimeTools()
         {

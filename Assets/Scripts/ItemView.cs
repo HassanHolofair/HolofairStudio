@@ -1,8 +1,10 @@
-using System;
 using UnityEngine;
 
 namespace HolofairStudio
 {
+    /// <summary>
+    /// Represent an object in the scene
+    /// </summary>
     public class ItemView : View<GameObject, int>
     {
         public bool reportMissingKeys;

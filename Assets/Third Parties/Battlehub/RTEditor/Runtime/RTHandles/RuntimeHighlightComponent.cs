@@ -96,6 +96,13 @@ namespace Battlehub.RTHandles
                     case RuntimeTool.Rect:
                         handle = m_selectionComponent.RectTool;
                         break;
+
+                    case RuntimeTool.SnapX:
+                    case RuntimeTool.SnapY:
+                    case RuntimeTool.SnapZ:
+                        handle = m_selectionComponent.SnapHandle;
+                        break;
+
                     case RuntimeTool.Custom:
                         handle = m_selectionComponent.CustomHandle;
                         break;

@@ -1,5 +1,5 @@
-using Battlehub.RTCommon;
-using Battlehub.RTHandles.Demo;
+//using Battlehub.RTCommon;
+//using Battlehub.RTHandles.Demo;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,26 +12,26 @@ namespace HolofairStudio
         private ControlType _controlType = ControlType.none;
         private Transform _selectedModelTransform;
 
-        private SimpleEditor _simpleEditor;
-        private IRTE m_editor;
+        //private SimpleEditor _simpleEditor;
+        //private IRTE m_editor;
 
         private Camera _camera;
 
         private void Start()
         {
             _camera = Camera.main;
-            _simpleEditor = FindObjectOfType<SimpleEditor>();  
+            //_simpleEditor = FindObjectOfType<SimpleEditor>();  
         }
 
         private void OnEnable()
         {
-            m_editor = IOC.Resolve<IRTE>();
-            m_editor.Tools.ToolChanged += OnToolChanged;
+            //m_editor = IOC.Resolve<IRTE>();
+            //m_editor.Tools.ToolChanged += OnToolChanged;
         }
 
         private void OnDisable()
         {
-            m_editor.Tools.ToolChanged -= OnToolChanged;
+            //m_editor.Tools.ToolChanged -= OnToolChanged;
         }
 
         private void Update()
@@ -87,7 +87,7 @@ namespace HolofairStudio
 
         public void SetControl(int controlType)
         {
-            _simpleEditor.DisableTools();
+            //_simpleEditor.DisableTools();
             _controlType = (ControlType)controlType;
         }
 

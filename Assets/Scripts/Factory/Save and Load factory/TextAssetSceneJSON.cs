@@ -1,7 +1,6 @@
 using UnityEngine;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace HolofairStudio
 {
@@ -27,6 +26,8 @@ namespace HolofairStudio
 
             foreach (var handler in _itemDownloadHandlers)
                 handler.DownloadAsync();
+
+            
         }
 
         public override List<ItemModel> FromJSON()

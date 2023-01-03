@@ -54,7 +54,7 @@ namespace Battlehub.RTHandles
                 {
                     m_editor.Tools.Current = RuntimeTool.Scale;
                 }
-                else if(RectToolAction())
+                else if (RectToolAction())
                 {
                     m_editor.Tools.Current = RuntimeTool.Rect;
                 }

@@ -9,10 +9,5 @@ namespace HolofairStudio
         [SerializeField] protected GameObject _loading;
 
         public Action<T1> OnSelect;
-
-        public void SetView(T2 view)
-        {
-
-        }
     }
 }

@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace HolofairStudio
 {
+    /// <summary>
+    /// Hold the data for an object in the scene, the actual object is ItemView
+    /// </summary>
     public class ItemModel
     {
         public string URL { get; set; }

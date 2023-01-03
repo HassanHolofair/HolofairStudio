@@ -33,7 +33,6 @@ namespace HolofairStudio
 
         public override async void DownloadAsync()
         {
-            // what if we add an item while this process is running?
             while (itemModels.Count > 0)
             {
                 var item = itemModels.Dequeue();
@@ -44,6 +43,8 @@ namespace HolofairStudio
                 await operation.Task;
 
                 item.ItemView.SetItemAsset(operation.Result);
+
+                OnItemDownloadFinish?.Invoke(item.ItemView.gameObject);
             }
         }
     }

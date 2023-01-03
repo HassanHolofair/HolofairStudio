@@ -8,6 +8,7 @@ using System;
 using UnityObject = UnityEngine.Object;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using HolofairStudio;
 
 namespace Battlehub.RTHandles
 {
@@ -113,6 +114,11 @@ namespace Battlehub.RTHandles
         }
 
         RectTool RectTool
+        {
+            get;
+        }
+
+        SnapHandle SnapHandle
         {
             get;
         }
@@ -232,6 +238,8 @@ namespace Battlehub.RTHandles
         [SerializeField]
         private RectTool m_rectTool = null;
         [SerializeField]
+        private SnapHandle m_snapHandle = null;
+        [SerializeField]
         private BaseHandle m_customHandle = null;
         [SerializeField]
         private BoxSelection m_boxSelection = null;
@@ -249,6 +257,8 @@ namespace Battlehub.RTHandles
         private bool m_isScaleHandleEnabled = true;
         //[SerializeField]
         private bool m_isRectToolEnabled = true;
+        //[SerializeField]
+        private bool m_isSnapHandleEnabled = true;
         //[SerializeField]
         private bool m_isBoxSelectionEnabled = true;
         //[SerializeField]
@@ -349,6 +359,11 @@ namespace Battlehub.RTHandles
         public RectTool RectTool
         {
             get { return m_rectTool; }
+        }
+
+        public SnapHandle SnapHandle
+        {
+            get { return m_snapHandle; }
         }
 
         public BaseHandle CustomHandle
@@ -472,6 +487,29 @@ namespace Battlehub.RTHandles
                         m_rectTool.Targets = GetHandleTargets();
                     }
                     m_rectTool.gameObject.SetActive(value && Editor.Tools.Current == RuntimeTool.Rect && m_rectTool.Target != null);
+                }
+            }
+        }
+
+        public bool IsSnapHandleEnabled
+        {
+            get { return m_isSnapHandleEnabled && m_snapHandle != null; }
+            set
+            {
+                m_isSnapHandleEnabled = value;
+                if (m_snapHandle != null)
+                {
+                    if (value && 
+                        (Editor.Tools.Current == RuntimeTool.SnapX ||
+                        Editor.Tools.Current == RuntimeTool.SnapY ||
+                        Editor.Tools.Current == RuntimeTool.SnapZ))
+                    {
+                        m_snapHandle.Targets = GetHandleTargets();
+                    }
+                    m_snapHandle.gameObject.SetActive(value && 
+                        (Editor.Tools.Current == RuntimeTool.SnapX ||
+                        Editor.Tools.Current == RuntimeTool.SnapY ||
+                        Editor.Tools.Current == RuntimeTool.SnapZ) && m_snapHandle.Target != null);
                 }
             }
         }
@@ -669,6 +707,7 @@ namespace Battlehub.RTHandles
             }
         }
 
+
         protected override void Awake()
         {
             base.Awake();
@@ -708,6 +747,10 @@ namespace Battlehub.RTHandles
             if (m_rectTool == null)
             {
                 m_rectTool = GetComponentInChildren<RectTool>(true);
+            }
+            if (m_snapHandle == null)
+            {
+                m_snapHandle = GetComponentInChildren<SnapHandle>(true);
             }
             if (m_grid == null)
             {
@@ -764,6 +807,19 @@ namespace Battlehub.RTHandles
 
                 m_scaleHandle.BeforeDrag.AddListener(OnBeforeDrag);
                 m_scaleHandle.Drop.AddListener(OnDrop);
+            }
+
+            if (m_scaleHandle != null)
+            {
+                if (m_snapHandle.Window == null)
+                {
+                    m_snapHandle.Window = Window;
+                }
+                m_snapHandle.gameObject.SetActive(true);
+                m_snapHandle.gameObject.SetActive(false);
+
+                m_snapHandle.BeforeDrag.AddListener(OnBeforeDrag);
+                m_snapHandle.Drop.AddListener(OnDrop);
             }
 
             if (m_rectTool != null)
@@ -1501,6 +1557,22 @@ namespace Battlehub.RTHandles
                 else
                 {
                     m_rectTool.gameObject.SetActive(false);
+                }
+            }
+            if (m_snapHandle != null)
+            {
+                if (hasSelection && IsSnapHandleEnabled && (
+                    Editor.Tools.Current == RuntimeTool.SnapX ||
+                    Editor.Tools.Current == RuntimeTool.SnapY ||
+                    Editor.Tools.Current == RuntimeTool.SnapZ))
+                {
+                    m_snapHandle.transform.position = Selection.activeTransform.position;
+                    m_snapHandle.Targets = GetHandleTargets();
+                    m_snapHandle.gameObject.SetActive(m_snapHandle.Targets.Length > 0);
+                }
+                else
+                {
+                    m_snapHandle.gameObject.SetActive(false);
                 }
             }
             if (m_customHandle != null)

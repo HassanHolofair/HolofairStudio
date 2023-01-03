@@ -27,13 +27,12 @@ namespace Battlehub.RTCommon
             get { return m_window; }
             set
             {
-                if(m_window != value)
+                if (m_window != value)
                 {
                     if (m_isStarted)
                     {
                         throw new NotSupportedException("window change is not supported");
                     }
-
                     m_editor = IOC.Resolve<IRTE>();
                     m_window = value;
                 }
