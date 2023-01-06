@@ -1107,7 +1107,9 @@ namespace Battlehub.RTCommon
                 {
                     if (!m_markAsDestroyedDuringLastOperation.Contains(obj))
                     {
-                        UnityObject.DestroyImmediate(obj.gameObject);
+                        UnityObject.Destroy(obj.gameObject);
+                        //UnityObject.DestroyImmediate(obj.gameObject);
+                        
                     }
                 }
             }

@@ -5,18 +5,17 @@ namespace HolofairStudio
     /// <summary>
     /// Represent an object in the scene
     /// </summary>
-    public class ItemView : View<GameObject, int>
+    public class ItemView : MonoBehaviour
     {
-        public bool reportMissingKeys;
+        public ItemModel Model { get; set; }
 
-        public void SetItemAsset(GameObject itemAsset)
+        [SerializeField] private GameObject _queued;
+        [SerializeField] private GameObject _loading;
+
+        private void OnDestroy()
         {
-            Instantiate(itemAsset, transform);
-
-            _queued.SetActive(false);
-            _loading.SetActive(false);
-
-            AddCollider();
+            if (Model != null)  
+                FindObjectOfType<SceneJSON>().RemoveItem(Model);
         }
 
         public void ShowEnqueueIndicator()
@@ -31,6 +30,16 @@ namespace HolofairStudio
             _loading.SetActive(true);
         }
 
+        public void SetItemAsset(GameObject itemAsset)
+        {
+            Instantiate(itemAsset, transform);
+
+            _queued.SetActive(false);
+            _loading.SetActive(false);
+
+            AddCollider();
+        }
+
         private void AddCollider()
         {
             var objects = transform.GetComponentsInChildren<MeshRenderer>();
@@ -38,5 +47,6 @@ namespace HolofairStudio
             foreach (var item in objects)
                 item.gameObject.AddComponent<MeshCollider>();
         }
+
     }
 }

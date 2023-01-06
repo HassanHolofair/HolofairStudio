@@ -1,4 +1,5 @@
 using com.outrealxr.networkimages;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,10 +9,12 @@ namespace HolofairStudio
     /// Represent a button in the menu
     /// </summary>
     [RequireComponent(typeof(NetworkImageUIImage))]
-    public class SceneResourceView : View<int, string>
-    {
+    public class SceneResourceView : MonoBehaviour
+    { 
+
+        public Action<SceneResourcesModel> OnSelect;
+        public SceneResourcesModel Model { get; set; }
         public NetworkImage NetworkImage { get; private set; }
-        public int Index { get; set; }
 
         private void Awake()
         {
@@ -20,7 +23,7 @@ namespace HolofairStudio
 
         public void Select()
         {
-            OnSelect(Index);
+            OnSelect?.Invoke(Model);
         }
     }
 }

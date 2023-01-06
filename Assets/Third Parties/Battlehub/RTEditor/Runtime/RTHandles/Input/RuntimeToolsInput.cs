@@ -12,6 +12,8 @@ namespace Battlehub.RTHandles
         public KeyCode RectToolKey = KeyCode.T;
         public KeyCode PivotRotationKey = KeyCode.X;
         public KeyCode PivotModeKey = KeyCode.Z;
+        public KeyCode CopyKey = KeyCode.C;
+        public KeyCode PasteKey = KeyCode.V;
 
         private IRTE m_editor;
         
@@ -58,6 +60,14 @@ namespace Battlehub.RTHandles
                 {
                     m_editor.Tools.Current = RuntimeTool.Rect;
                 }
+                else if (CopyAction())
+                {
+                    //m_editor.Tools.CopiedItem = m_editor.
+                }
+                else if (PasteAction())
+                {
+                    
+                }
 
                 if (PivotRotationAction())
                 {
@@ -81,6 +91,7 @@ namespace Battlehub.RTHandles
                         m_editor.Tools.PivotMode = RuntimePivotMode.Center;
                     }
                 }
+
             }
         }
 
@@ -117,6 +128,18 @@ namespace Battlehub.RTHandles
         protected virtual bool PivotModeAction()
         {
             return m_editor.Input.GetKeyDown(PivotModeKey) &&
+                        !(m_editor.Input.GetKey(KeyCode.LeftControl) || m_editor.Input.GetKey(KeyCode.LeftShift));
+        }
+
+        protected virtual bool CopyAction()
+        {
+            return m_editor.Input.GetKeyDown(CopyKey) &&
+                        !(m_editor.Input.GetKey(KeyCode.LeftControl) || m_editor.Input.GetKey(KeyCode.LeftShift));
+        }
+
+        protected virtual bool PasteAction()
+        {
+            return m_editor.Input.GetKeyDown(PasteKey) &&
                         !(m_editor.Input.GetKey(KeyCode.LeftControl) || m_editor.Input.GetKey(KeyCode.LeftShift));
         }
     }

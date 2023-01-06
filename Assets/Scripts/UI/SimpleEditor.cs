@@ -274,7 +274,6 @@ namespace HolofairStudio
         private void OnInvertButton()
         {
             m_editor.Tools.InvertSnapping = !m_editor.Tools.InvertSnapping;
-            Debug.Log(m_editor.Tools.InvertSnapping);
         }
     }
 }

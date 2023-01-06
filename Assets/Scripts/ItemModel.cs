@@ -16,6 +16,7 @@ namespace HolofairStudio
             URL = json.GetValue("url").ToObject<string>();
 
             ItemView = GameObject.Instantiate(itemView);
+            ItemView.Model = this;
             json.ToTransform(ItemView);
         }
 
@@ -23,6 +24,7 @@ namespace HolofairStudio
         {
             URL = url;
             ItemView = GameObject.Instantiate(itemView);
+            ItemView.Model = this;
         }
     }
 }

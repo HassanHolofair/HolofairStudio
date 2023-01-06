@@ -18,6 +18,14 @@ namespace HolofairStudio
                 handler.DownloadAsync();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                Debug.Log(Items.Count);
+            }
+        }
+
         public override async void AddItemAsync(ItemModel itemModel)
         {
             Items.Add(itemModel);
@@ -26,8 +34,6 @@ namespace HolofairStudio
 
             foreach (var handler in _itemDownloadHandlers)
                 handler.DownloadAsync();
-
-            
         }
 
         public override List<ItemModel> FromJSON()

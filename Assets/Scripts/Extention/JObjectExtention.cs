@@ -32,8 +32,6 @@ namespace HolofairStudio
                 var o = jobject.GetValue("position").ToObject<JArray>();
                 transform.position = o.ToVector3();
             }
-            else if (model.reportMissingKeys)
-                Debug.Log("[Extensions] Missing locationPosition key");
         }
 
         public static bool ContainsKey(this JObject jobject, string value)

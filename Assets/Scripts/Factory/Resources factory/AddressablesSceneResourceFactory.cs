@@ -29,7 +29,7 @@ namespace HolofairStudio
 
                 string imageURL = Addressables.LoadResourceLocationsAsync(item.Image).WaitForCompletion().First()?.PrimaryKey;
                 string prefabURL = Addressables.LoadResourceLocationsAsync(item.Prefab).WaitForCompletion().First()?.PrimaryKey;
-                SceneResources.AddResource(modelUrl: prefabURL, imageUrl: imageURL);
+                _sceneResources.AddResource(modelUrl: prefabURL, imageUrl: imageURL);
             }
         }
     }

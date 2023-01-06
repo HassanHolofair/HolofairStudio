@@ -13,6 +13,20 @@ namespace HolofairStudio
         public List<ItemModel> Items { get; set; }
 
         public abstract void AddItemAsync(ItemModel itemModel);
+
+        public void AddItem(ItemModel itemModel)
+        {
+            Items.Add(itemModel);
+        }
+
+        public void RemoveItem(ItemModel itemModel)
+        {
+            if(Items.Remove(itemModel))
+                Debug.Log("item removed");
+            else
+                Debug.Log("item not removed");
+        }
+
         public abstract List<ItemModel> FromJSON();
         public abstract string ToJSON();
 

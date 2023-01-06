@@ -19,6 +19,7 @@ namespace HolofairStudio
 
         private void Start()
         {
+            
             _camera = Camera.main;
             //_simpleEditor = FindObjectOfType<SimpleEditor>();  
         }

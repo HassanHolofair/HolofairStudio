@@ -1,18 +1,13 @@
 using Battlehub.RTCommon;
-using Battlehub.RTHandles;
-
-using UnityEngine;
-using UnityEngine.EventSystems;
-
-using System.Linq;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace HolofairStudio
 {
     /// <summary>
     /// Add the instantiated item to game history to enable undo/redo
     /// </summary>
-    public class ItemRecorder : MonoBehaviour
+    public class Options : MonoBehaviour
     {
         private IRTE m_editor;
 

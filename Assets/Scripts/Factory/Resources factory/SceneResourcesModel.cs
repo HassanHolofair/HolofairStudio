@@ -3,22 +3,23 @@ using UnityEngine;
 
 namespace HolofairStudio
 {
+    /// <summary>
+    /// Hold the data for button model
+    /// </summary>
     public class SceneResourcesModel
     {
-        public string ModelURL { get; set; }
-        public string ImageURL { get; set; }
-        public SceneResourceView View { get; set; }
+        private SceneResourceView _view;
 
-        public SceneResourcesModel(int index, string modelURL, string imageURL, SceneResourceView prefab, Transform viewHolder, Action<int> OnButtonClicked)
+        public string PrefabURL { get; private set; }
+
+        public SceneResourcesModel(string modelURL, string imageURL, SceneResourceView prefab, Transform viewHolder, Action<SceneResourcesModel> OnButtonClicked)
         {
-            ImageURL = imageURL;
-            ModelURL = modelURL;
+            PrefabURL = modelURL;
 
-            View = GameObject.Instantiate(prefab, viewHolder);
-            View.NetworkImage.SetAndEnqueue(ImageURL);
-            View.Index = index;
-            View.OnSelect += OnButtonClicked;
+            _view = GameObject.Instantiate(prefab, viewHolder);
+            _view.Model = this;
+            _view.NetworkImage.SetAndEnqueue(imageURL);
+            _view.OnSelect += OnButtonClicked;
         }
-
     }
 }

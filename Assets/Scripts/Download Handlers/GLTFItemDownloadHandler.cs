@@ -22,7 +22,8 @@ namespace HolofairStudio
 
                 item.ItemView.SetItemAsset(asset.gameObject);
 
-                OnItemDownloadFinish?.Invoke(item.ItemView.gameObject);
+                OnItemDownloadFinish(item.ItemView.gameObject);
+
             }
         }
 
