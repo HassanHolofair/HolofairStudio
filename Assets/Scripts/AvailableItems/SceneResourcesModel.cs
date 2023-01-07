@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace HolofairStudio
+namespace HolofairStudio.AvailableItems
 {
     /// <summary>
     /// Hold the data for button model

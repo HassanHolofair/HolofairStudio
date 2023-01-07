@@ -1,85 +1,117 @@
 using Battlehub.RTCommon;
 using Battlehub.RTHandles;
-using System.Collections;
+
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HolofairStudio
+using HolofairStudio.SceneItems;
+
+namespace HolofairStudio.UI
 {
-    public class UIToolsController : SimpleEditor, IRTEState
+    public class UIToolsController : MonoBehaviour, IRTEState
     {
-        [SerializeField]
-        private Button m_focusButton = null;
+        [Header("Editor Tools")]
+        [SerializeField] private Toggle m_viewToggle = null;
+        [SerializeField] private Toggle m_positionToggle = null;
+        [SerializeField] private Toggle m_rotationToggle = null;
+        [SerializeField] private Toggle m_scaleToggle = null;
+        [SerializeField] private Toggle m_rectToggle = null;
+        [SerializeField] private Toggle m_pivotModeToggle = null;
+        [SerializeField] private Toggle m_pivotRotationToggle = null;
 
-        [SerializeField]
-        private Button m_deleteButton = null;
+        [Header("Snap tools")]
+        [SerializeField] private Toggle m_snapXToggle = null;
+        [SerializeField] private Toggle m_snapYToggle = null;
+        [SerializeField] private Toggle m_snapZToggle = null;
+        [SerializeField] private Button m_invertButton = null;
 
-        [SerializeField]
-        private GameObject m_components = null;
+        [Header("Undo")]
+        [SerializeField] private Button m_undoButton = null;
+        [SerializeField] private Button m_redoButton = null;
 
-        [SerializeField]
-        private GameObject m_ui = null;
+        [SerializeField] private Button m_focusButton = null;
 
-        [SerializeField]
-        private GameObject m_prefabSpawnPoints = null;
+        [SerializeField] private Button m_deleteButton = null;
+        [SerializeField] private Button m_saveButton = null;
+        [SerializeField] private Button m_loadButton = null;
 
-        [SerializeField]
-        private GameObject m_editorCamera = null;
-
-        [SerializeField]
-        private GameObject m_gameCamera = null;
-
-        private ResourcePreviewUtility m_resourcePreview;
+        private SceneJSON _sceneJSON;
 
         public bool IsCreated
         {
             get { return true; }
         }
+        protected IRTE Editor { get; private set; }
 
-        protected override void Awake()
+        private void Start()
         {
-            base.Awake();
+            Editor = IOC.Resolve<IRTE>();
 
-            IOC.Register<IRTEState>(this);
-            m_resourcePreview = gameObject.AddComponent<ResourcePreviewUtility>();
-            IOC.Register<IResourcePreviewUtility>(m_resourcePreview);
-        }
+            Editor.Tools.ToolChanged += OnToolChanged;
+            Editor.Tools.PivotModeChanged += OnPivotModeChanged;
+            Editor.Tools.PivotRotationChanged += OnPivotRotationChanged;
 
-        protected override void Start()
-        {
-            base.Start();
+            Editor.Undo.UndoCompleted += UpdateUndoRedoButtons;
+            Editor.Undo.RedoCompleted += UpdateUndoRedoButtons;
+            Editor.Undo.StateChanged += UpdateUndoRedoButtons;
+
+            SubscribeUIEvents();
+
+            UpdateUndoRedoButtons();
             Editor.IsOpened = true;
             Editor.IsPlaying = false;
-            OnPlaymodeStateChanged();
 
-            Editor.PlaymodeStateChanged += OnPlaymodeStateChanged;
             Editor.Selection.SelectionChanged += OnSelectionChanged;
+
+            _sceneJSON = FindObjectOfType<SceneJSON>();
         }
 
-        protected override void OnDestroy()
+        private void OnDestroy()
         {
-            base.OnDestroy();
             if (Editor != null)
             {
-                Editor.PlaymodeStateChanged -= OnPlaymodeStateChanged;
-                Editor.Selection.SelectionChanged -= OnSelectionChanged;
+                Editor.Tools.ToolChanged -= OnToolChanged;
+                Editor.Tools.PivotModeChanged -= OnPivotModeChanged;
+                Editor.Tools.PivotRotationChanged -= OnPivotRotationChanged;
+
+                Editor.Undo.UndoCompleted -= UpdateUndoRedoButtons;
+                Editor.Undo.RedoCompleted -= UpdateUndoRedoButtons;
+                Editor.Undo.StateChanged -= UpdateUndoRedoButtons;
             }
 
-            IOC.Unregister<IRTEState>(this);
-            IOC.Unregister<IResourcePreviewUtility>(m_resourcePreview);
+            UnsubscribeUIEvents();
+            if (Editor != null)
+            {
+                Editor.Selection.SelectionChanged -= OnSelectionChanged;
+            }
         }
 
-        protected virtual void Update()
+        private void Update()
         {
             if (Editor.Input.GetKeyDown(KeyCode.Delete))
             {
                 DeleteSelected();
             }
         }
-        protected override void SubscribeUIEvents()
+        private void SubscribeUIEvents()
         {
-            base.SubscribeUIEvents();
+            if (m_viewToggle) m_viewToggle.onValueChanged.AddListener(OnViewToggle);
+            if (m_positionToggle) m_positionToggle.onValueChanged.AddListener(OnPositionToggle);
+            if (m_rotationToggle) m_rotationToggle.onValueChanged.AddListener(OnRotationToggle);
+            if (m_scaleToggle) m_scaleToggle.onValueChanged.AddListener(OnScaleToogle);
+            if (m_rectToggle) m_rectToggle.onValueChanged.AddListener(OnRectToggle);
+
+            if (m_snapXToggle) m_snapXToggle.onValueChanged.AddListener(OnSnapXToggle);
+            if (m_snapYToggle) m_snapYToggle.onValueChanged.AddListener(OnSnapYToggle);
+            if (m_snapZToggle) m_snapZToggle.onValueChanged.AddListener(OnSnapZToggle);
+
+            if (m_pivotModeToggle) m_pivotModeToggle.onValueChanged.AddListener(OnPivotModeToggle);
+            if (m_pivotRotationToggle) m_pivotRotationToggle.onValueChanged.AddListener(OnPivotRotationToggle);
+
+            if (m_undoButton) m_undoButton.onClick.AddListener(OnUndoClick);
+            if (m_redoButton) m_redoButton.onClick.AddListener(OnRedoClick);
+            if (m_invertButton) m_invertButton.onClick.AddListener(OnInvertButton);
 
             if (m_focusButton != null)
             {
@@ -89,11 +121,36 @@ namespace HolofairStudio
             {
                 m_deleteButton.onClick.AddListener(OnDeleteClick);
             }
+
+            if (m_saveButton != null)
+            {
+                m_saveButton.onClick.AddListener(OnSaveClick);
+            }
+
+            if (m_loadButton != null)
+            {
+                m_loadButton.onClick.AddListener(OnLoadClick);
+            }
         }
 
-        protected override void UnsubscribeUIEvents()
+        private void UnsubscribeUIEvents()
         {
-            base.UnsubscribeUIEvents();
+            if (m_viewToggle) m_viewToggle.onValueChanged.RemoveListener(OnViewToggle);
+            if (m_positionToggle) m_positionToggle.onValueChanged.RemoveListener(OnPositionToggle);
+            if (m_rotationToggle) m_rotationToggle.onValueChanged.RemoveListener(OnRotationToggle);
+            if (m_scaleToggle) m_scaleToggle.onValueChanged.RemoveListener(OnScaleToogle);
+            if (m_rectToggle) m_rectToggle.onValueChanged.RemoveListener(OnRectToggle);
+
+            if (m_snapXToggle) m_snapXToggle.onValueChanged.RemoveListener(OnSnapXToggle);
+            if (m_snapYToggle) m_snapYToggle.onValueChanged.RemoveListener(OnSnapYToggle);
+            if (m_snapZToggle) m_snapZToggle.onValueChanged.RemoveListener(OnSnapZToggle);
+
+            if (m_pivotModeToggle) m_pivotModeToggle.onValueChanged.RemoveListener(OnPivotModeToggle);
+            if (m_pivotRotationToggle) m_pivotRotationToggle.onValueChanged.RemoveListener(OnPivotRotationToggle);
+
+            if (m_undoButton) m_undoButton.onClick.RemoveListener(OnUndoClick);
+            if (m_redoButton) m_redoButton.onClick.RemoveListener(OnRedoClick);
+            if (m_invertButton) m_invertButton.onClick.RemoveListener(OnInvertButton);
 
             if (m_focusButton != null)
             {
@@ -103,29 +160,15 @@ namespace HolofairStudio
             {
                 m_deleteButton.onClick.RemoveListener(OnDeleteClick);
             }
-        }
 
-        protected virtual void OnPlaymodeStateChanged()
-        {
-            if (m_components != null)
+            if (m_saveButton != null)
             {
-                m_components.SetActive(!Editor.IsPlaying);
+                m_saveButton.onClick.RemoveListener(OnSaveClick);
             }
-            if (m_ui != null)
+
+            if (m_loadButton != null)
             {
-                m_ui.SetActive(!Editor.IsPlaying);
-            }
-            if (m_prefabSpawnPoints != null)
-            {
-                m_prefabSpawnPoints.SetActive(!Editor.IsPlaying);
-            }
-            if (m_editorCamera != null)
-            {
-                m_editorCamera.SetActive(!Editor.IsPlaying);
-            }
-            if (m_gameCamera != null)
-            {
-                m_gameCamera.SetActive(Editor.IsPlaying);
+                m_loadButton.onClick.RemoveListener(OnLoadClick);
             }
         }
 
@@ -144,11 +187,11 @@ namespace HolofairStudio
             scenePivot.Focus(FocusMode.Default);
         }
 
-        private void OnDeleteClick()
-        {
-            DeleteSelected();
-        }
+        private void OnSaveClick() => _sceneJSON.Save();
 
+        private void OnLoadClick() => _sceneJSON.Load();
+
+        private void OnDeleteClick() => DeleteSelected();
         private void DeleteSelected()
         {
             if (Editor.Selection.Length > 0)
@@ -164,6 +207,154 @@ namespace HolofairStudio
                 Editor.Undo.DestroyObjects(exposed);
                 Editor.Undo.EndRecord();
             }
+        }
+
+        private void OnToolChanged()
+        {
+            UnsubscribeUIEvents();
+
+            RuntimeTool tool = Editor.Tools.Current;
+            switch (tool)
+            {
+                case RuntimeTool.View:
+                    if (m_viewToggle != null) m_viewToggle.isOn = true;
+                    break;
+                case RuntimeTool.Move:
+                    if (m_positionToggle != null) m_positionToggle.isOn = true;
+                    break;
+                case RuntimeTool.Rotate:
+                    if (m_rotationToggle != null) m_rotationToggle.isOn = true;
+                    break;
+                case RuntimeTool.Scale:
+                    if (m_scaleToggle != null) m_scaleToggle.isOn = true;
+                    break;
+                case RuntimeTool.Rect:
+                    if (m_rectToggle != null) m_rectToggle.isOn = true;
+                    break;
+                case RuntimeTool.SnapX:
+                    if (m_snapXToggle != null) m_snapXToggle.isOn = true;
+                    break;
+                case RuntimeTool.SnapY:
+                    if (m_snapYToggle != null) m_snapYToggle.isOn = true;
+                    break;
+                case RuntimeTool.SnapZ:
+                    if (m_snapZToggle != null) m_snapZToggle.isOn = true;
+                    break;
+                case RuntimeTool.None:
+                    if (m_viewToggle != null) m_viewToggle.isOn = false;
+                    if (m_positionToggle != null) m_positionToggle.isOn = false;
+                    if (m_rotationToggle != null) m_rotationToggle.isOn = false;
+                    if (m_scaleToggle != null) m_scaleToggle.isOn = false;
+                    if (m_rectToggle != null) m_rectToggle.isOn = false;
+                    if (m_snapXToggle != null) m_snapXToggle.isOn = false;
+                    if (m_snapYToggle != null) m_snapYToggle.isOn = false;
+                    if (m_snapZToggle != null) m_snapZToggle.isOn = false;
+                    break;
+
+            }
+
+            SubscribeUIEvents();
+        }
+
+        private void OnPivotModeChanged()
+        {
+            UnsubscribeUIEvents();
+
+            m_pivotModeToggle.isOn = Editor.Tools.PivotMode == RuntimePivotMode.Center;
+
+            Text text = m_pivotModeToggle.GetComponent<Text>();
+            if (text != null)
+            {
+                text.text = Editor.Tools.PivotMode.ToString() + " (Z)";
+            }
+
+            SubscribeUIEvents();
+        }
+
+        private void OnPivotRotationChanged()
+        {
+            UnsubscribeUIEvents();
+
+            m_pivotRotationToggle.isOn = Editor.Tools.PivotRotation == RuntimePivotRotation.Global;
+
+            Text text = m_pivotRotationToggle.GetComponent<Text>();
+            if (text != null)
+            {
+                text.text = Editor.Tools.PivotRotation.ToString() + " (X)";
+            }
+
+            SubscribeUIEvents();
+        }
+
+        private void UpdateUndoRedoButtons()
+        {
+            if (m_undoButton) m_undoButton.interactable = Editor.Undo.CanUndo;
+            if (m_redoButton) m_redoButton.interactable = Editor.Undo.CanRedo;
+        }
+
+        private void OnViewToggle(bool value)
+        {
+            Editor.Tools.Current = RuntimeTool.View;
+        }
+
+        private void OnPositionToggle(bool value)
+        {
+            Editor.Tools.Current = RuntimeTool.Move;
+        }
+
+        private void OnRotationToggle(bool value)
+        {
+            Editor.Tools.Current = RuntimeTool.Rotate;
+        }
+
+        private void OnScaleToogle(bool value)
+        {
+            Editor.Tools.Current = RuntimeTool.Scale;
+        }
+
+        private void OnRectToggle(bool value)
+        {
+            Editor.Tools.Current = RuntimeTool.Rect;
+        }
+
+        private void OnPivotModeToggle(bool value)
+        {
+            Editor.Tools.PivotMode = value ? RuntimePivotMode.Center : RuntimePivotMode.Pivot;
+        }
+
+        private void OnPivotRotationToggle(bool value)
+        {
+            Editor.Tools.PivotRotation = value ? RuntimePivotRotation.Global : RuntimePivotRotation.Local;
+        }
+
+        private void OnUndoClick()
+        {
+            Editor.Undo.Undo();
+        }
+
+        private void OnRedoClick()
+        {
+            Editor.Undo.Redo();
+        }
+
+        private void OnSnapXToggle(bool value)
+        {
+            Editor.Tools.Current = RuntimeTool.SnapX;
+        }
+
+        private void OnSnapYToggle(bool value)
+        {
+            Editor.Tools.Current = RuntimeTool.SnapY;
+        }
+
+        private void OnSnapZToggle(bool value)
+        {
+            Editor.Tools.Current = RuntimeTool.SnapZ;
+        }
+
+        private void OnInvertButton()
+        {
+            Editor.Tools.InvertSnapping = !Editor.Tools.InvertSnapping;
         }
 
         #region IRTEState implementation

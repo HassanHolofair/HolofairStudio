@@ -2,7 +2,7 @@ using UnityEngine;
 using GLTFast;
 using System.Threading.Tasks;
 
-namespace HolofairStudio
+namespace HolofairStudio.SceneItems
 {
     [CreateAssetMenu(menuName ="DownloadHandle/gltfHandler")]
     public class GLTFItemDownloadHandler : ItemDownloadHandler
@@ -21,9 +21,6 @@ namespace HolofairStudio
                 await asset.Load(item.URL);
 
                 item.ItemView.SetItemAsset(asset.gameObject);
-
-                OnItemDownloadFinish(item.ItemView.gameObject);
-
             }
         }
 

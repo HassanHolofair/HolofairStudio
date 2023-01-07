@@ -1,7 +1,7 @@
 using System.Linq;
 using UnityEngine.AddressableAssets;
 
-namespace HolofairStudio
+namespace HolofairStudio.AvailableItems
 {
 
     public class AddressablesSceneResourceFactory : SceneResourceFactory

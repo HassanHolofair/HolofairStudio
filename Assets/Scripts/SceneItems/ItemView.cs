@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HolofairStudio
+namespace HolofairStudio.SceneItems
 {
     /// <summary>
     /// Represent an object in the scene
@@ -12,10 +12,13 @@ namespace HolofairStudio
         [SerializeField] private GameObject _queued;
         [SerializeField] private GameObject _loading;
 
+
         private void OnDestroy()
         {
-            if (Model != null)  
-                FindObjectOfType<SceneJSON>().RemoveItem(Model);
+            var jsonScene = FindObjectOfType<SceneJSON>();
+
+            if (jsonScene && Model != null)
+                jsonScene.RemoveItem(Model);
         }
 
         public void ShowEnqueueIndicator()

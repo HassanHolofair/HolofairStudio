@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace HolofairStudio
+namespace HolofairStudio.AvailableItems
 {
     public class RemoteJSONSceneResourceFactory : SceneResourceFactory
     {

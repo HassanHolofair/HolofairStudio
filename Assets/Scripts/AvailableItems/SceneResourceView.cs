@@ -1,9 +1,8 @@
 using com.outrealxr.networkimages;
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace HolofairStudio
+namespace HolofairStudio.AvailableItems
 {
     /// <summary>
     /// Represent a button in the menu

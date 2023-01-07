@@ -1,23 +1,19 @@
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HolofairStudio
+namespace HolofairStudio.SceneItems
 {
     public class RemoteSceneJSON : SceneJSON
     {
         [SerializeField] private string _url;
 
-        public override void AddItemAsync(ItemModel itemModel)
-        {
-            Items.Add(itemModel);
-        }
-
-        public override List<ItemModel> FromJSON()
+        protected override List<ItemModel> FromJSON()
         {
             throw new System.NotImplementedException();
         }
 
-        public override string ToJSON()
+        protected override JToken ToJSON()
         {
             throw new System.NotImplementedException();
         }
@@ -25,6 +21,11 @@ namespace HolofairStudio
         public void Upload()
         {
 
+        }
+
+        public override void Save()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace HolofairStudio
+namespace HolofairStudio.AvailableItems
 {
     [CreateAssetMenu]
     public class SceneResourcePack : ScriptableObject

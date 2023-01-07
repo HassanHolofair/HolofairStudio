@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace HolofairStudio
+namespace HolofairStudio.AvailableItems
 {
     public abstract class SceneResourceFactory
     {
