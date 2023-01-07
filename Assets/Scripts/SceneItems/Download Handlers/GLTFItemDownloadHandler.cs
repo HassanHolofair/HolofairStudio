@@ -5,12 +5,16 @@ using System.Collections.Generic;
 
 namespace HolofairStudio.SceneItems
 {
-    [CreateAssetMenu(menuName ="DownloadHandle/gltfHandler")]
     public class GLTFItemDownloadHandler : ItemDownloadHandler
     {
-        [SerializeField] private GltfAsset _gltfPrefab;
+        private GltfAsset _gltfPrefab;
         private const string EXTENTION = ".gltf";
         private readonly Dictionary<string, GameObject> _gltfItems = new();
+
+        public GLTFItemDownloadHandler(GltfAsset gltfPrefab)
+        {
+            _gltfPrefab = gltfPrefab;
+        }
 
         public override async void DownloadAsync()
         {
@@ -26,7 +30,7 @@ namespace HolofairStudio.SceneItems
                 else
                 {
                     item.ItemView.ShowDownloadingIndicator();
-                    GltfAsset asset = Instantiate(_gltfPrefab, item.ItemView.transform);
+                    GltfAsset asset = GameObject.Instantiate(_gltfPrefab, item.ItemView.transform);
                     await asset.Load(item.URL);
                     gltfItem = asset.gameObject;
                     _gltfItems.Add(item.URL, gltfItem);

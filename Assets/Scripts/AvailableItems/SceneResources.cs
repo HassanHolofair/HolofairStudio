@@ -11,7 +11,6 @@ namespace HolofairStudio.AvailableItems
 
         private SceneJSON _sceneJSON;
         
-
         public List<SceneResourcesModel> Resources { get; private set; } = new List<SceneResourcesModel>();
         
         private void Start()
@@ -30,16 +29,10 @@ namespace HolofairStudio.AvailableItems
             Resources.Add(model);
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
         private void CreateItemModel(SceneResourcesModel model)
         {
             ItemModel itemModel = new (model.PrefabURL, _sceneJSON.ViewPrefab);
             _sceneJSON.AddAndEnqueueItemAsync(itemModel);
         }
-
-        
     }
 }

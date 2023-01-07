@@ -1604,7 +1604,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0005741781}
+  m_AnchoredPosition: {x: 0, y: 0.00044292118}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &916972484
@@ -2400,9 +2400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ViewPrefab>k__BackingField: {fileID: 4397089097337529091, guid: 290c64c1d885853449b7ab9b42cdaf21, type: 3}
-  _itemDownloadHandlers:
-  - {fileID: 11400000, guid: 1a30617600ccf21429374d970dc29d00, type: 2}
-  - {fileID: 11400000, guid: 2f52ec7f2046ef44b8693c98b30eee4a, type: 2}
+  _gltfPrefab: {fileID: 8697264879383630267, guid: 7f96483aabe724a4e8489f09bed3cb67, type: 3}
   _source: {fileID: 4900000, guid: 81589d49cf9fc044c9e49230aed2920b, type: 3}
 --- !u!4 &1367675956
 Transform:

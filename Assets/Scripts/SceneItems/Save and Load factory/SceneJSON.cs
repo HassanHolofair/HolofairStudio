@@ -2,16 +2,23 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
+using GLTFast;
 
 namespace HolofairStudio.SceneItems
 {
     public abstract class SceneJSON : MonoBehaviour
     {
         [field: SerializeField]  public ItemView ViewPrefab { get; private set; }
-        [SerializeField] protected ItemDownloadHandler[] _itemDownloadHandlers;
-
+        [SerializeField] private GltfAsset _gltfPrefab;
+        protected readonly ItemDownloadHandler[] _itemDownloadHandlers = new ItemDownloadHandler[2];
         protected readonly List<ItemModel> _items = new();
-        
+
+        private void Awake()
+        {
+            _itemDownloadHandlers[0] = new GLTFItemDownloadHandler(_gltfPrefab);
+            _itemDownloadHandlers[1] = new AddressablesItemDownloadHandler();
+        }
+
         protected abstract List<ItemModel> FromJSON();
         protected abstract JToken ToJSON();
         public abstract void Save();

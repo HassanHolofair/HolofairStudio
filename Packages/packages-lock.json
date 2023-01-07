@@ -14,7 +14,7 @@
       "url": "https://package.openupm.com"
     },
     "com.outrealxr.networkimages": {
-      "version": "1.0.10",
+      "version": "1.0.11",
       "depth": 0,
       "source": "registry",
       "dependencies": {

@@ -9,6 +9,7 @@ namespace HolofairStudio.AvailableItems
     public class SceneResourcesModel
     {
         private SceneResourceView _view;
+        
 
         public string PrefabURL { get; private set; }
 
@@ -19,6 +20,7 @@ namespace HolofairStudio.AvailableItems
             _view = GameObject.Instantiate(prefab, viewHolder);
             _view.Model = this;
             _view.NetworkImage.SetAndEnqueue(imageURL);
+            _view.NetworkImage.queued.SetActive(true);
             _view.OnSelect += OnButtonClicked;
         }
     }

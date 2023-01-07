@@ -10,7 +10,6 @@ namespace HolofairStudio.AvailableItems
     [RequireComponent(typeof(NetworkImageUIImage))]
     public class SceneResourceView : MonoBehaviour
     { 
-
         public Action<SceneResourcesModel> OnSelect;
         public SceneResourcesModel Model { get; set; }
         public NetworkImage NetworkImage { get; private set; }

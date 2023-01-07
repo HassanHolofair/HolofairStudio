@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace HolofairStudio.SceneItems
 {
-    public abstract class ItemDownloadHandler : ScriptableObject
+    public abstract class ItemDownloadHandler
     {
-        public Queue<ItemModel> itemModels = new();
+        protected readonly Queue<ItemModel> itemModels = new();
 
         public abstract Task<bool> EnqueueAsync(ItemModel itemModel);
 
