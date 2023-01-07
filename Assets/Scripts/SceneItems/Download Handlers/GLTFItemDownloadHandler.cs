@@ -1,6 +1,7 @@
 using UnityEngine;
 using GLTFast;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace HolofairStudio.SceneItems
 {
@@ -9,18 +10,29 @@ namespace HolofairStudio.SceneItems
     {
         [SerializeField] private GltfAsset _gltfPrefab;
         private const string EXTENTION = ".gltf";
+        private readonly Dictionary<string, GameObject> _gltfItems = new();
 
         public override async void DownloadAsync()
         {
             while (itemModels.Count > 0)
             {
                 var item = itemModels.Dequeue();
-                item.ItemView.ShowDownloadingIndicator();
 
-                GltfAsset asset = Instantiate(_gltfPrefab, item.ItemView.transform);
-                await asset.Load(item.URL);
-
-                item.ItemView.SetItemAsset(asset.gameObject);
+                GameObject gltfItem;
+                if (_gltfItems.ContainsKey(item.URL))
+                {
+                    gltfItem = _gltfItems[item.URL];
+                }
+                else
+                {
+                    item.ItemView.ShowDownloadingIndicator();
+                    GltfAsset asset = Instantiate(_gltfPrefab, item.ItemView.transform);
+                    await asset.Load(item.URL);
+                    gltfItem = asset.gameObject;
+                    _gltfItems.Add(item.URL, gltfItem);
+                }
+                
+                item.ItemView.SetItemAsset(gltfItem);
             }
         }
 
@@ -31,6 +43,8 @@ namespace HolofairStudio.SceneItems
 
             if (!itemModel.URL.Contains(EXTENTION))
                 return false;
+
+
 
             itemModels.Enqueue(itemModel);
             itemModel.ItemView.ShowEnqueueIndicator();
