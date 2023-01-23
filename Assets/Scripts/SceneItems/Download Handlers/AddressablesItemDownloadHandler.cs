@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace HolofairStudio
+namespace HolofairStudio.SceneItems
 {
     [CreateAssetMenu(menuName = "DownloadHandle/AddressableHandler")]
     public class AddressablesItemDownloadHandler : ItemDownloadHandler
@@ -43,8 +43,6 @@ namespace HolofairStudio
                 await operation.Task;
 
                 item.ItemView.SetItemAsset(operation.Result);
-
-                OnItemDownloadFinish?.Invoke(item.ItemView.gameObject);
             }
         }
     }

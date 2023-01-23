@@ -1,15 +1,15 @@
 using UnityEngine;
 
-namespace HolofairStudio
+namespace HolofairStudio.AvailableItems
 {
     public abstract class SceneResourceFactory
     {
-        public SceneResources SceneResources { get; private set; }
+        protected SceneResources _sceneResources;
         protected string _url;
 
         public SceneResourceFactory(SceneResources resources, string url)
         {
-            SceneResources = resources;
+            _sceneResources = resources;
             _url = url;
         }
 

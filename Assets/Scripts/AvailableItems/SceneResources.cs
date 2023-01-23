@@ -1,7 +1,8 @@
 using UnityEngine;
+using HolofairStudio.SceneItems;
 using System.Collections.Generic;
 
-namespace HolofairStudio
+namespace HolofairStudio.AvailableItems
 {
     public class SceneResources : MonoBehaviour
     {
@@ -9,7 +10,7 @@ namespace HolofairStudio
         [SerializeField] private Transform _viewsHolder;
 
         private SceneJSON _sceneJSON;
-        private int _currentResourcesIndex;
+        
         public List<SceneResourcesModel> Resources { get; private set; } = new List<SceneResourcesModel>();
         
         private void Start()
@@ -24,20 +25,14 @@ namespace HolofairStudio
         /// <param name="imageUrl"></param>
         public void AddResource(string modelUrl, string imageUrl)
         {
-            SceneResourcesModel model = new(_currentResourcesIndex, modelUrl, imageUrl, _viewPrefab, _viewsHolder, CreateItemModel);
+            SceneResourcesModel model = new(modelUrl, imageUrl, _viewPrefab, _viewsHolder, CreateItemModel);
             Resources.Add(model);
-            _currentResourcesIndex++;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="index"></param>
-        private void CreateItemModel(int index)
+        private void CreateItemModel(SceneResourcesModel model)
         {
-            SceneResourcesModel resource = Resources[index];
-            ItemModel itemModel = new (resource.ModelURL, _sceneJSON.ViewPrefab);
-            _sceneJSON.AddItemAsync(itemModel);
+            ItemModel itemModel = new (model.PrefabURL, _sceneJSON.ViewPrefab);
+            _sceneJSON.AddAndEnqueueItemAsync(itemModel);
         }
     }
 }

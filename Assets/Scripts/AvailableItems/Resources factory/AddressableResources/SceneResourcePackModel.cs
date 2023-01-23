@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace HolofairStudio
+namespace HolofairStudio.AvailableItems
 {
     [CreateAssetMenu]
     public class SceneResourcePackModel : ScriptableObject

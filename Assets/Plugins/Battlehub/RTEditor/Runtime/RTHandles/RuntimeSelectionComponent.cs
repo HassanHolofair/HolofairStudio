@@ -8,7 +8,6 @@ using System;
 using UnityObject = UnityEngine.Object;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using HolofairStudio;
 
 namespace Battlehub.RTHandles
 {

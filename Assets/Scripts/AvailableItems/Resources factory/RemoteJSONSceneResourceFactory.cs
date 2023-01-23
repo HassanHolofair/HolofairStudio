@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace HolofairStudio
+namespace HolofairStudio.AvailableItems
 {
     public class RemoteJSONSceneResourceFactory : SceneResourceFactory
     {
@@ -40,7 +40,7 @@ namespace HolofairStudio
 
                 string imageURL = (string)jobject.GetValue(IMAGE_KEY);
                 string prefabURL = (string)jobject.GetValue(GLTF_KEY);
-                SceneResources.AddResource(modelUrl: prefabURL, imageUrl: imageURL);
+                _sceneResources.AddResource(modelUrl: prefabURL, imageUrl: imageURL);
             }
 
         }

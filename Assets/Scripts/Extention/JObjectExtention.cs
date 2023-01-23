@@ -1,17 +1,18 @@
 using UnityEngine;
 using Newtonsoft.Json.Linq;
+using HolofairStudio.SceneItems;
 
 namespace HolofairStudio
 {
     public static class JObjectExtention
     {
-        public static JObject ToJObject(this Vector3 vector3)
+        public static JArray ToJObject(this Vector3 vector3)
         {
-            var data = new JObject
+            var data = new JArray
             {
-                { "x", vector3.x },
-                { "y", vector3.y },
-                { "z", vector3.z }
+                vector3.x,
+                vector3.y,
+                vector3.z
             };
             return data;
         }
@@ -32,8 +33,6 @@ namespace HolofairStudio
                 var o = jobject.GetValue("position").ToObject<JArray>();
                 transform.position = o.ToVector3();
             }
-            else if (model.reportMissingKeys)
-                Debug.Log("[Extensions] Missing locationPosition key");
         }
 
         public static bool ContainsKey(this JObject jobject, string value)

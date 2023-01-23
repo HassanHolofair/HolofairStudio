@@ -46,7 +46,8 @@ namespace Battlehub.RTCommon
     public delegate void RuntimeToolsEvent<T1, T2>(T1 arg1, T2 arg2);
     public delegate void RuntimeToolsEvent();
     public delegate void SpawnPrefabChanged(GameObject oldPrefab);
-  
+    public delegate void ItemCopied();
+
     /// <summary>
     /// Runtime tools and flags
     /// </summary>
@@ -70,6 +71,9 @@ namespace Battlehub.RTCommon
         public event RuntimeToolsEvent LockAxesChanged;
         public event RuntimeToolsEvent ActiveToolChanged;
         public event RuntimeToolsEvent IsBoxSelectionEnabledChanged;
+        public event ItemCopied OnItemCopyed;
+        public event ItemCopied OnItemPasted;
+
 
         private bool m_isViewing;
         public bool IsViewing
@@ -272,6 +276,20 @@ namespace Battlehub.RTCommon
 
         public bool InvertSnapping { get; set; }
 
+        private GameObject _copyedItem;
+        public GameObject CopiedItem
+        {
+            get { return _copyedItem; }
+            set
+            {
+                if (_copyedItem != value)
+                {
+                    _copyedItem = value;
+                    OnItemCopyed?.Invoke();
+                    
+                }
+            }
+        }
         public RuntimeTools()
         {
             Reset();
