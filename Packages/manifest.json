@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "com.atteneder.gltfast": "4.9.1",
+    "com.outrealxr.holomod": "3.0.87",
+    "com.outrealxr.logger": "0.0.1",
     "com.outrealxr.networkimages": "1.0.10",
+    "com.sag.guid-references": "https://github.com/STARasGAMES/Guid-References.git#upm",
     "com.unity.addressables": "1.19.19",
     "com.unity.burst": "1.6.6",
     "com.unity.collab-proxy": "1.15.15",
@@ -10,9 +13,12 @@
     "com.unity.ide.vscode": "1.2.5",
     "com.unity.inputsystem": "1.3.0",
     "com.unity.mathematics": "1.2.6",
+    "com.unity.render-pipelines.core": "12.1.6",
+    "com.unity.render-pipelines.universal": "12.1.6",
     "com.unity.test-framework": "1.1.31",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.6.4",
+    "com.unity.toolchain.win-x86_64-linux-x86_64": "2.0.4",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.7.6",
     "com.unity.modules.ai": "1.0.0",
@@ -52,7 +58,9 @@
       "name": "OpenUPM",
       "url": "https://package.openupm.com",
       "scopes": [
-        "com.atteneder"
+        "com.atteneder",
+        "com.github.siccity.xnode",
+        "com.nosuchstudio"
       ]
     },
     {

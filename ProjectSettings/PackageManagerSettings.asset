@@ -30,6 +30,8 @@ MonoBehaviour:
     m_Url: https://package.openupm.com
     m_Scopes:
     - com.atteneder
+    - com.github.siccity.xnode
+    - com.nosuchstudio
     m_IsDefault: 0
     m_Capabilities: 0
   - m_Id: scoped:OXR
@@ -40,7 +42,7 @@ MonoBehaviour:
     - com.outrealxr
     m_IsDefault: 0
     m_Capabilities: 0
-  m_UserSelectedRegistryName: OXR
+  m_UserSelectedRegistryName: OpenUPM
   m_UserAddingNewScopedRegistry: 0
   m_RegistryInfoDraft:
     m_Modified: 0

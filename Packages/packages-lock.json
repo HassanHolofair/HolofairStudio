@@ -13,14 +13,48 @@
       },
       "url": "https://package.openupm.com"
     },
-    "com.outrealxr.networkimages": {
-      "version": "1.0.10",
+    "com.github.siccity.xnode": {
+      "version": "1.8.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "com.outrealxr.holomod": {
+      "version": "3.0.87",
       "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.addressables": "1.19.18",
+        "com.unity.textmeshpro": "3.0.4",
+        "com.unity.visualscripting": "1.7.8",
+        "com.github.siccity.xnode": "1.8.0",
+        "com.outrealxr.networkimages": "1.0.11"
+      },
+      "url": "http://15.184.152.124:4873"
+    },
+    "com.outrealxr.logger": {
+      "version": "0.0.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "http://15.184.152.124:4873"
+    },
+    "com.outrealxr.networkimages": {
+      "version": "1.0.11",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.addressables": "1.19.18"
       },
       "url": "http://15.184.152.124:4873"
+    },
+    "com.sag.guid-references": {
+      "version": "https://github.com/STARasGAMES/Guid-References.git#upm",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "34d373d7ebaa64577af071b552b1bf1092cc48e5"
     },
     "com.unity.addressables": {
       "version": "1.19.19",
@@ -102,9 +136,37 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.render-pipelines.core": {
+      "version": "12.1.6",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.ugui": "1.0.0",
+        "com.unity.modules.physics": "1.0.0",
+        "com.unity.modules.jsonserialize": "1.0.0"
+      }
+    },
+    "com.unity.render-pipelines.universal": {
+      "version": "12.1.6",
+      "depth": 0,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.mathematics": "1.2.1",
+        "com.unity.burst": "1.5.0",
+        "com.unity.render-pipelines.core": "12.1.6",
+        "com.unity.shadergraph": "12.1.6"
+      }
+    },
     "com.unity.scriptablebuildpipeline": {
       "version": "1.19.6",
       "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.searcher": {
+      "version": "4.9.1",
+      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -115,6 +177,31 @@
       "source": "registry",
       "dependencies": {
         "com.unity.modules.unitywebrequest": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.shadergraph": {
+      "version": "12.1.6",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "12.1.6",
+        "com.unity.searcher": "4.9.1"
+      }
+    },
+    "com.unity.sysroot": {
+      "version": "2.0.5",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.sysroot.linux-x86_64": {
+      "version": "2.0.4",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot": "2.0.5"
       },
       "url": "https://packages.unity.com"
     },
@@ -150,6 +237,16 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.toolchain.win-x86_64-linux-x86_64": {
+      "version": "2.0.4",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.sysroot": "2.0.5",
+        "com.unity.sysroot.linux-x86_64": "2.0.4"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.ugui": {
       "version": "1.0.0",
       "depth": 0,
@@ -160,8 +257,8 @@
       }
     },
     "com.unity.visualscripting": {
-      "version": "1.7.6",
-      "depth": 0,
+      "version": "1.7.8",
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.ugui": "1.0.0",
