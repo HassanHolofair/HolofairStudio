@@ -71,8 +71,6 @@ namespace Battlehub.RTCommon
         public event RuntimeToolsEvent LockAxesChanged;
         public event RuntimeToolsEvent ActiveToolChanged;
         public event RuntimeToolsEvent IsBoxSelectionEnabledChanged;
-        public event ItemCopied OnItemCopyed;
-        public event ItemCopied OnItemPasted;
 
 
         private bool m_isViewing;
@@ -276,20 +274,6 @@ namespace Battlehub.RTCommon
 
         public bool InvertSnapping { get; set; }
 
-        private GameObject _copyedItem;
-        public GameObject CopiedItem
-        {
-            get { return _copyedItem; }
-            set
-            {
-                if (_copyedItem != value)
-                {
-                    _copyedItem = value;
-                    OnItemCopyed?.Invoke();
-                    
-                }
-            }
-        }
         public RuntimeTools()
         {
             Reset();

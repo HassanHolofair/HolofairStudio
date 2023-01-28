@@ -6,7 +6,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace HolofairStudio.SceneItems
 {
-    [CreateAssetMenu(menuName = "DownloadHandle/AddressableHandler")]
     public class AddressablesItemDownloadHandler : ItemDownloadHandler
     {
         public override async Task<bool> EnqueueAsync(ItemModel itemModel)
