@@ -16,32 +16,30 @@ public class SnapHandle : BaseHandle
         if (Editor.Input.GetPointer(0))
         {
             Ray ray = Window.Camera.ScreenPointToRay(Input.mousePosition);
-            
-            if (Physics.Raycast(ray, out RaycastHit hit, 100, _modelsLayer))
-                Control(hit);
+
+            var hits = Physics.RaycastAll(ray);
+            foreach (var hit in hits)
+            {
+                if (hit.transform.root != ActiveTargets[0])
+                    Control(hit);
+            }
         }
     }
 
     private void Control(RaycastHit hit)
     {
-        foreach (var target in ActiveTargets)
-        {
-            if(hit.transform.root == target)
-                return;
-        }
-        
         Vector3 direction = Vector3.zero;
         RuntimeTool tool = Editor.Tools.Current;
         switch (tool)
         {
             case RuntimeTool.SnapX:
-                if (Editor.Tools.InvertSnapping) 
+                if (Editor.Tools.InvertSnapping)
                     direction = Quaternion.Euler(new Vector3(0, 90, 0)) * hit.normal;
                 else
                     direction = Quaternion.Euler(new Vector3(0, -90, 0)) * hit.normal;
                 break;
             case RuntimeTool.SnapY:
-                if(Editor.Tools.InvertSnapping)
+                if (Editor.Tools.InvertSnapping)
                     direction = Quaternion.Euler(new Vector3(-90, 0, 0)) * hit.normal;
                 else
                     direction = Quaternion.Euler(new Vector3(90, 0, 0)) * hit.normal;
@@ -51,10 +49,8 @@ public class SnapHandle : BaseHandle
                 break;
         }
 
-        foreach (var target in ActiveTargets)
-        {
-            target.SetPositionAndRotation(hit.point, Quaternion.LookRotation(direction));
-        }
+        ActiveTargets[0].SetPositionAndRotation(hit.point, Quaternion.LookRotation(direction));
+
     }
 
 }
