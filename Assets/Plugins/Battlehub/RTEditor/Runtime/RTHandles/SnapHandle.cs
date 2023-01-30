@@ -24,47 +24,39 @@ public class SnapHandle : BaseHandle
 
             var hits = Physics.RaycastAll(ray);
             var hit = GetClosestHit(hits, ActiveTargets[0]);
-            Snap(hit);
 
-            /*foreach (var hit in hits)
-            {
-                if (hit.transform.root != ActiveTargets[0])
-                {
-                    Control(hit);
-                    break;
-                }
-            }*/
+            if (hit.HasValue) 
+                Snap(hit.Value, ray.direction);
         }
     }
 
-    private void Snap(RaycastHit? hit)
+    private void Snap(RaycastHit hit, Vector3 direction)
     {
-        if (!hit.HasValue)
-            return;
+        var y = hit.normal;
+        var x = Vector3.Cross(y, direction).normalized;
 
-        Vector3 direction = Vector3.zero;
+        var lookRotation = Quaternion.LookRotation(x, y);
+
         RuntimeTool tool = Editor.Tools.Current;
         switch (tool)
         {
             case RuntimeTool.SnapX:
                 if (Editor.Tools.InvertSnapping)
-                    direction = Quaternion.Euler(new Vector3(0, 90, 0)) * hit.Value.normal;
+                    lookRotation *= Quaternion.Euler(new Vector3(0, 90, 0));
                 else
-                    direction = Quaternion.Euler(new Vector3(0, -90, 0)) * hit.Value.normal;
+                    lookRotation *= Quaternion.Euler(new Vector3(0, -90, 0));
                 break;
             case RuntimeTool.SnapY:
                 if (Editor.Tools.InvertSnapping)
-                    direction = Quaternion.Euler(new Vector3(-90, 0, 0)) * hit.Value.normal;
+                    lookRotation *= Quaternion.Euler(new Vector3(-90, 0, 0));
                 else
-                    direction = Quaternion.Euler(new Vector3(90, 0, 0)) * hit.Value.normal;
+                    lookRotation *= Quaternion.Euler(new Vector3(90, 0, 0));
                 break;
             case RuntimeTool.SnapZ:
-                direction = hit.Value.normal * (Editor.Tools.InvertSnapping ? -1 : 1);
                 break;
         }
 
-        direction = Quaternion.Euler(new Vector3(90, 0, 0)) * hit.Value.normal;
-        ActiveTargets[0].SetPositionAndRotation(hit.Value.point, Quaternion.LookRotation(direction));
+        ActiveTargets[0].SetPositionAndRotation(hit.point, lookRotation);
 
     }
 
